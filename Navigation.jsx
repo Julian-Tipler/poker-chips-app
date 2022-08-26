@@ -4,13 +4,13 @@ import { NavigationContainer } from "@react-navigation/native";
 import { LoginScreen } from "./src/screens/LoginScreen";
 import { HomeScreen } from "./src/screens/HomeScreen/HomeScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { RoomScreen } from "./src/screens/RoomScreen/RoomScreen";
 
 const Stack = createNativeStackNavigator();
 
 export const Navigation = () => {
   const { currentUser } = useAuth();
 
-  console.log("currentUser", currentUser);
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -21,7 +21,10 @@ export const Navigation = () => {
             component={LoginScreen}
           />
         ) : (
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Room" component={RoomScreen} />
+          </>
         )}
       </Stack.Navigator>
     </NavigationContainer>

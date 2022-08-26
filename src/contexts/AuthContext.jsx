@@ -16,16 +16,14 @@ export function AuthProvider({ children }) {
   const signUp = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential);
         const user = userCredential.user;
         set(ref(database, `users/${user.uid}`), {
-          name: user.email,
+          email: user.email,
         });
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage);
       });
   };
 
@@ -37,19 +35,15 @@ export function AuthProvider({ children }) {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorMessage);
-        // ..
       });
   };
 
   const logout = () => {
-    console.log("logout")
     return auth.signOut();
   };
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-        console.log("onAuthStateChanged")
       setCurrentUser(currentUser);
     });
     return unsubscribe;
