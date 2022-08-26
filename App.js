@@ -1,15 +1,14 @@
 import { database } from "./firebase";
-import { StyleSheet} from "react-native";
-import { ref, set, onValue } from "firebase/database";
-import { uid } from "uid";
+import { StyleSheet } from "react-native";
+import { ref, onValue } from "firebase/database";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { LoginScreen } from "./src/Screens/LoginScreen/LoginScreen";
+import { LoginScreen } from "./src/screens/LoginScreen";
+import { HomeScreen } from "./src/screens/HomeScreen/HomeScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-
   const playerRef = ref(database, "players");
 
   onValue(playerRef, (snapshot) => {
@@ -18,12 +17,15 @@ export default function App() {
     // setUserWallet(snapshot.val());
   });
 
-
-
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen
+          options={{ headerShown: false }}
+          name="Login"
+          component={LoginScreen}
+        />
+        <Stack.Screen name="Home" component={HomeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
