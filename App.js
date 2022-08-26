@@ -1,12 +1,14 @@
 import { StyleSheet } from "react-native";
 import { AuthProvider } from "./src/contexts/AuthContext";
 import { Navigation } from "./Navigation";
+import { RoomProvider } from "./src/contexts/RoomContext";
 
 export default function App() {
-
   return (
     <AuthProvider>
-      <Navigation/>
+      <RoomProvider>
+        <Navigation />
+      </RoomProvider>
     </AuthProvider>
   );
 }

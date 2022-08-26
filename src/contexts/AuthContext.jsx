@@ -5,13 +5,14 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth, database } from "../../firebase";
-import { ref, set } from "firebase/database";
+import { onValue, ref, set } from "firebase/database";
 
 const AuthContext = React.createContext({});
 export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
-  const [currentUser, setCurrentUser] = useState("");
+  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUserObject, setCurrentUserObject] = useState({});
 
   const signUp = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -49,8 +50,20 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
+  useEffect(() => {
+    if (currentUser) {
+      onValue(ref(database, `users/${currentUser.uid}`), (snapshot) => {
+        const data = snapshot.val();
+        if (data !== null) {
+          setCurrentUserObject(data);
+        }
+      });
+    }
+  }, [currentUser]);
+
   const value = {
     currentUser,
+    currentUserObject,
     login,
     signUp,
     logout,
