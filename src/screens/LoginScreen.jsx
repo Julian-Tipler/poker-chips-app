@@ -7,53 +7,44 @@ import {
   View,
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
-import React, { useEffect, useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
+import React, { useContext, useEffect, useState } from "react";
 import { auth } from "../../firebase";
+import { useAuth } from "../contexts/AuthContext";
 
 export const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { login, signUp, currentUser } = useAuth();
 
   const navigation = useNavigation();
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         navigation.navigate("Home");
       }
     });
-  });
+    return unsubscribe;
+  }, []);
+
+  const emailPasswordValidationErrors = (email,password) => {
+    const errors = []
+    if(false) {
+      errors.push("error")
+    }
+    if(errors.length) return errors
+    return null
+  }
 
   const handleSignUp = () => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
+    const errors = emailPasswordValidationErrors(email,password)
+    if(errors) {
+      signUp(email,password)
+    }
   };
 
   const handleLogin = () => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
+    login(email,password)
   };
 
   return (
@@ -75,7 +66,7 @@ export const LoginScreen = () => {
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity onPress={handleLogin} style={styles.button}>
-          <Text>Login</Text>
+          <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleSignUp}
