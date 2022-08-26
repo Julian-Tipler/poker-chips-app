@@ -1,8 +1,8 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { initializeApp } from "firebase/app";
-import { getDatabase } from "firebase/database";
-
+import { getDatabase, ref, set, onValue } from "firebase/database";
+import { useState } from "react";
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
@@ -13,17 +13,31 @@ const firebaseConfig = {
   messagingSenderId: "707682999455",
   appId: "1:707682999455:web:3c5bcff64bcdc6852e96aa",
   measurementId: "G-0XLC3G5JVS",
-  databaseURL: "https://DATABASE_NAME.firebaseio.com",
+  databaseURL: "https://poker-chips-app-ff7ea-default-rtdb.firebaseio.com",
 };
 
 const app = initializeApp(firebaseConfig);
-const database = getDatabase(app);
+export const database = getDatabase(app);
 
 export default function App() {
+  const [userWallet, setUserWallet] = useState(0)
+
+  const playerWallet = ref(
+    database,
+    'players/player1/wallet/current_bet'
+  );
+  onValue(playerWallet, (snapshot) => {
+    console.log("hello")
+    setUserWallet(snapshot.val());
+  });
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <TouchableOpacity>
+        <Text>Fetch data</Text>
+      </TouchableOpacity>
+      <Text>Wallet:</Text>
+      <Text>{userWallet}</Text>
     </View>
   );
 }
@@ -31,8 +45,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

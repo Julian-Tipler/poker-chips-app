@@ -1,0 +1,58 @@
+[debug] [2022-08-26T00:57:53.543Z] ----------------------------------------------------------------------
+[debug] [2022-08-26T00:57:53.544Z] Command:       /usr/local/bin/node /usr/local/bin/firebase emulators:start
+[debug] [2022-08-26T00:57:53.545Z] CLI Version:   10.5.0
+[debug] [2022-08-26T00:57:53.545Z] Platform:      darwin
+[debug] [2022-08-26T00:57:53.545Z] Node Version:  v14.16.0
+[debug] [2022-08-26T00:57:53.546Z] Time:          Thu Aug 25 2022 19:57:53 GMT-0500 (Central Daylight Time)
+[debug] [2022-08-26T00:57:53.546Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-08-26T00:57:53.598Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-08-26T00:57:53.598Z] > authorizing via signed-in user (tipler.julian@gmail.com)
+[debug] [2022-08-26T00:57:54.092Z] java version "16" 2021-03-16
+Java(TM) SE Runtime Environment (build 16+36-2231)
+
+[debug] [2022-08-26T00:57:54.093Z] Java HotSpot(TM) 64-Bit Server VM (build 16+36-2231, mixed mode, sharing)
+
+[debug] [2022-08-26T00:57:54.099Z] Parsed Java major version: 16
+[info] i  emulators: Starting emulators: database {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: database"}}
+[debug] [2022-08-26T00:57:54.127Z] [hub] writing locator at /var/folders/j8/rbn89nc14rx3yqc282h2g_lw0000gn/T/hub-poker-chips-app-ff7ea.json
+[debug] [2022-08-26T00:57:54.135Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/poker-chips-app-ff7ea [none]
+[debug] [2022-08-26T00:57:54.527Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/poker-chips-app-ff7ea 200
+[debug] [2022-08-26T00:57:54.527Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/poker-chips-app-ff7ea {"projectId":"poker-chips-app-ff7ea","projectNumber":"707682999455","displayName":"poker-chips-app","name":"projects/poker-chips-app-ff7ea","resources":{"hostingSite":"poker-chips-app-ff7ea","realtimeDatabaseInstance":"poker-chips-app-ff7ea-default-rtdb"},"state":"ACTIVE","etag":"1_fde8a7f7-b403-4ea3-b8c9-514f58d8b35c"}
+[debug] [2022-08-26T00:57:54.527Z] database rules config:  []
+[warn] ⚠  database: Did not find a Realtime Database rules file specified in a firebase.json config file. The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration. {"metadata":{"emulator":{"name":"database"},"message":"Did not find a Realtime Database rules file specified in a firebase.json config file. The emulator will default to allowing all reads and writes. Learn more about this option: https://firebase.google.com/docs/emulator-suite/install_and_configure#security_rules_configuration."}}
+[debug] [2022-08-26T00:57:54.530Z] Ignoring unsupported arg: projectId {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: projectId"}}
+[debug] [2022-08-26T00:57:54.530Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-08-26T00:57:54.531Z] Ignoring unsupported arg: rules {"metadata":{"emulator":{"name":"database"},"message":"Ignoring unsupported arg: rules"}}
+[debug] [2022-08-26T00:57:54.531Z] Starting Database Emulator with command {"binary":"java","args":["-Duser.language=en","-jar","/Users/juliantipler/.cache/firebase/emulators/firebase-database-emulator-v4.7.3.jar","--host","localhost","--port",9000],"optionalArgs":["port","host","functions_emulator_port","functions_emulator_host"],"joinArgs":false} {"metadata":{"emulator":{"name":"database"},"message":"Starting Database Emulator with command {\"binary\":\"java\",\"args\":[\"-Duser.language=en\",\"-jar\",\"/Users/juliantipler/.cache/firebase/emulators/firebase-database-emulator-v4.7.3.jar\",\"--host\",\"localhost\",\"--port\",9000],\"optionalArgs\":[\"port\",\"host\",\"functions_emulator_port\",\"functions_emulator_host\"],\"joinArgs\":false}"}}
+[info] i  database: Database Emulator logging to database-debug.log {"metadata":{"emulator":{"name":"database"},"message":"Database Emulator logging to \u001b[1mdatabase-debug.log\u001b[22m"}}
+[debug] [2022-08-26T00:57:55.694Z] 19:57:55.692 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+ {"metadata":{"emulator":{"name":"database"},"message":"19:57:55.692 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started\n"}}
+[debug] [2022-08-26T00:57:55.821Z] 19:57:55.821 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000
+ {"metadata":{"emulator":{"name":"database"},"message":"19:57:55.821 [main] INFO com.firebase.server.forge.App$ - Listening at localhost:9000\n"}}
+[info] i  ui: downloading ui-v1.6.5.zip... {"metadata":{"emulator":{"name":"ui"},"message":"downloading ui-v1.6.5.zip..."}}
+[debug] [2022-08-26T00:57:56.072Z] >>> [apiv2][query] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.6.5.zip 
+[debug] [2022-08-26T00:57:56.109Z] <<< [apiv2][status] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.6.5.zip 200
+[debug] [2022-08-26T00:57:56.109Z] <<< [apiv2][body] GET https://storage.googleapis.com/firebase-preview-drop/emulator/ui-v1.6.5.zip [stream]
+[debug] [2022-08-26T00:57:56.431Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-08-26T00:57:56.432Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-08-26T00:57:56.432Z] Starting Emulator UI with command {"binary":"node","args":["/Users/juliantipler/.cache/firebase/emulators/ui-v1.6.5/server.bundle.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/Users/juliantipler/.cache/firebase/emulators/ui-v1.6.5/server.bundle.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2022-08-26T00:57:56.528Z] Web / API server started at localhost:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at localhost:4000\n"}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://localhost:4000                │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────┬────────────────┬────────────────────────────────┐
+│ Emulator │ Host:Port      │ View in Emulator UI            │
+├──────────┼────────────────┼────────────────────────────────┤
+│ Database │ localhost:9000 │ http://localhost:4000/database │
+└──────────┴────────────────┴────────────────────────────────┘
+  Emulator Hub running at localhost:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
