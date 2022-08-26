@@ -3,17 +3,17 @@ import React, { useEffect, useState } from "react";
 import { onValue } from "firebase/database";
 
 export const RoomScreen = () => {
-  const [room, SetRoom] = useState(null);
-  const roomsRef = ref(database, "rooms/");
-
+  const { currentUser, logout } = useAuth();
+  const userRoomRef = ref(database, `users/${currentUser.uid}/room`);
   useEffect(() => {
-    onValue(roomsRef, (snapshot) => {
+    onValue(userRoomRef, (snapshot) => {
       const data = snapshot.val();
       if (data !== null) {
-        setRooms(Object.values(data));
+        setRoom(data);
       }
     });
   }, []);
+
   return (
     <View>
       <Text>RoomScreen</Text>
