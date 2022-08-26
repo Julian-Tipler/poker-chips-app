@@ -18,33 +18,24 @@ export const LoginScreen = () => {
 
   const navigation = useNavigation();
 
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user) {
-        navigation.navigate("Home");
-      }
-    });
-    return unsubscribe;
-  }, []);
-
-  const emailPasswordValidationErrors = (email,password) => {
-    const errors = []
-    if(false) {
-      errors.push("error")
+  const emailPasswordValidationErrors = (email, password) => {
+    const errors = [];
+    if (false) {
+      errors.push("error");
     }
-    if(errors.length) return errors
-    return null
-  }
+    if (errors.length) return errors;
+    return null;
+  };
 
   const handleSignUp = () => {
-    const errors = emailPasswordValidationErrors(email,password)
-    if(errors) {
-      signUp(email,password)
+    const errors = emailPasswordValidationErrors(email, password);
+    if (!errors) {
+      signUp(email, password);
     }
   };
 
   const handleLogin = () => {
-    login(email,password)
+    login(email, password);
   };
 
   return (

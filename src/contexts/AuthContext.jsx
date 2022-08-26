@@ -4,7 +4,8 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth, database } from "../../firebase";
+import { ref, set } from "firebase/database";
 
 const AuthContext = React.createContext({});
 export const useAuth = () => useContext(AuthContext);
@@ -12,10 +13,13 @@ export const useAuth = () => useContext(AuthContext);
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState("");
 
-  const signUp = () => {
+  const signUp = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
+        set(ref(database, `users/${user.uid}`), {
+          email: user.email,
+        });
       })
       .catch((error) => {
         const errorCode = error.code;
@@ -23,7 +27,7 @@ export function AuthProvider({ children }) {
       });
   };
 
-  const login = () => {
+  const login = (email, password) => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
@@ -31,7 +35,6 @@ export function AuthProvider({ children }) {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
       });
   };
 
