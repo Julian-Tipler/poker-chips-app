@@ -24,11 +24,14 @@ export default function App() {
 
   const playerWallet = ref(
     database,
-    'players/player1/wallet/current_bet'
+    'players'
   );
+  console.log(database)
   onValue(playerWallet, (snapshot) => {
-    console.log("hello")
-    setUserWallet(snapshot.val());
+    const data = snapshot.val()
+    console.log(snapshot)
+    console.log(data)
+    // setUserWallet(snapshot.val());
   });
 
   return (
