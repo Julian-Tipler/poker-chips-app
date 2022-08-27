@@ -23,35 +23,24 @@ export const HomeScreen = () => {
 };
 
 const HomePage = () => {
-  const { currentUser, currentUserObject, logout } = useAuth();
-  const { room } = useRoom();
+  const { logout } = useAuth();
+  const { room, createRoom} = useRoom();
   const [roomName, setRoomName] = useState("");
   const navigation = useNavigation();
 
-  const createRoom = () => {
-    const uuid = uid();
-    set(ref(database, `rooms/${uuid}`), {
-      name: roomName,
-      users: {
-        [currentUser.uid]: {
-          name: currentUser.email,
-        },
-      },
-    })
-      .then(() => remove(ref(database, `rooms/${currentUserObject.room}`)))
-      .then(() => {
-        update(ref(database, `users/${currentUser.uid}`), {
-          room: uuid,
-        });
-      })
-      .catch(() => console.log("error with room creation"))
-      .then(() => setRoomName(""))
-      .then(() => handleJoinExistingRoom());
+  const handleCreateRoom = () => {
+    createRoom(roomName)
+    .then(() => {
+      handleJoinExistingRoom();
+    });
+    setRoomName("");
   };
 
   const handleJoinExistingRoom = () => {
     navigation.navigate("Room");
   };
+
+  console.log('COMPONENT', room)
 
   const userHasRoom = !!room;
   return (
@@ -64,7 +53,7 @@ const HomePage = () => {
           style={styles.input}
         />
       </View>
-      <TouchableOpacity onPress={createRoom}>
+      <TouchableOpacity onPress={handleCreateRoom}>
         <Text>Create New Room</Text>
       </TouchableOpacity>
       {userHasRoom && (

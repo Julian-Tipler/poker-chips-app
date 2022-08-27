@@ -56,7 +56,10 @@ export function AuthProvider({ children }) {
       onValue(ref(database, `users/${currentUser.uid}`), (snapshot) => {
         const data = snapshot.val();
         if (data !== null) {
-          setCurrentUserObject(data);
+          setCurrentUserObject({
+            ...data,
+            uid: currentUser.uid
+          });
           if (initializing) setInitializing(false);
         }
       });
