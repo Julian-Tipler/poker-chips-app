@@ -15,12 +15,17 @@ export function RoomProvider({ children }) {
   const [room, setRoom] = useState(null);
   const { currentUserObject } = useAuth();
 
-  const userRoomRef = ref(database, `rooms/${currentUserObject.room}`);
+  console.log("IN CONTEXT ROOM:", room);
+  console.log("IN CONTEXT CURRENTUSEROBJECT:", currentUserObject);
+
   useEffect(() => {
+    console.log("USE-EFFECT-ACTIVATED")
+    const userRoomRef = ref(database, `rooms/${currentUserObject.room}`);
+    console.log("REF", userRoomRef);
     onValue(userRoomRef, (snapshot) => {
       const data = snapshot.val();
+      console.log("data", data);
       if (data !== null) {
-        console.log(data)
         setRoom(data);
       }
     });
@@ -29,5 +34,6 @@ export function RoomProvider({ children }) {
   const value = {
     room,
   };
+
   return <RoomContext.Provider value={value}>{children}</RoomContext.Provider>;
 }

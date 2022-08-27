@@ -6,9 +6,7 @@ import { RoomProvider } from "./src/contexts/RoomContext";
 export default function App() {
   return (
     <AuthProvider>
-      <RoomProvider>
         <Navigation />
-      </RoomProvider>
     </AuthProvider>
   );
 }

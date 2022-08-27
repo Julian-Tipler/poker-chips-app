@@ -11,8 +11,9 @@ const AuthContext = React.createContext({});
 export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
+  const [initializing, setInitializing] = useState(true);
   const [currentUser, setCurrentUser] = useState(null);
-  const [currentUserObject, setCurrentUserObject] = useState({});
+  const [currentUserObject, setCurrentUserObject] = useState(null);
 
   const signUp = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password)
@@ -56,12 +57,14 @@ export function AuthProvider({ children }) {
         const data = snapshot.val();
         if (data !== null) {
           setCurrentUserObject(data);
+          if (initializing) setInitializing(false);
         }
       });
     }
   }, [currentUser]);
 
   const value = {
+    initializing,
     currentUser,
     currentUserObject,
     login,

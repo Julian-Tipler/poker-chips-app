@@ -5,16 +5,25 @@ import { LoginScreen } from "./src/screens/LoginScreen";
 import { HomeScreen } from "./src/screens/HomeScreen/HomeScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { RoomScreen } from "./src/screens/RoomScreen/RoomScreen";
+import { RoomProvider } from "./src/contexts/RoomContext";
+import { View, Text } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
 export const Navigation = () => {
-  const { currentUser } = useAuth();
+  const { currentUserObject, currentUser, initializing } = useAuth();
+
+  if (initializing)
+    return (
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        <Text>Loading...</Text>
+      </View>
+    );
 
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {!currentUser ? (
+        {!currentUserObject | !currentUser ? (
           <Stack.Screen
             options={{ headerShown: false }}
             name="Login"

@@ -8,13 +8,14 @@ import {
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { uid } from "uid";
-import { onValue, ref, set, update } from "firebase/database";
+import { onValue, ref, remove, set, update } from "firebase/database";
 import { useAuth } from "../../contexts/AuthContext";
 import { database } from "../../../firebase";
 import { useNavigation } from "@react-navigation/native";
+import { RoomProvider } from "../../contexts/RoomContext";
 
 export const HomeScreen = () => {
-  const { currentUser, logout } = useAuth();
+  const { currentUser, currentUserObject, logout } = useAuth();
   const [room, setRoom] = useState(null);
   const [roomName, setRoomName] = useState("");
   const navigation = useNavigation();
@@ -34,9 +35,12 @@ export const HomeScreen = () => {
     set(ref(database, `rooms/${uuid}`), {
       name: roomName,
       users: {
-        [currentUser.uid]: true,
+        [currentUser.uid]: {
+          name:currentUser.email
+        },
       },
     })
+      .then(() => remove(ref(database, `rooms/${currentUserObject.room}`)))
       .then(() => {
         update(ref(database, `users/${currentUser.uid}`), {
           room: uuid,
@@ -50,7 +54,7 @@ export const HomeScreen = () => {
     navigation.navigate("Room");
   };
 
-  const userHasRoom = !!room
+  const userHasRoom = !!room;
   return (
     <KeyboardAvoidingView style={styles.container} behavior="padding">
       <Text></Text>
@@ -69,11 +73,12 @@ export const HomeScreen = () => {
           <Text>Join Existing Room</Text>
         </TouchableOpacity>
       )}
+      <Text>MY ROOM:</Text>
+      <Text>{room}</Text>
+      <Text></Text>
       <TouchableOpacity onPress={logout}>
         <Text>logout</Text>
       </TouchableOpacity>
-      <Text>MY ROOM:</Text>
-      <Text>{room}</Text>
     </KeyboardAvoidingView>
   );
 };
