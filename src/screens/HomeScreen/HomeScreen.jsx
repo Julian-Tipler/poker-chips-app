@@ -12,23 +12,21 @@ import { onValue, ref, remove, set, update } from "firebase/database";
 import { useAuth } from "../../contexts/AuthContext";
 import { database } from "../../../firebase";
 import { useNavigation } from "@react-navigation/native";
-import { RoomProvider } from "../../contexts/RoomContext";
+import { RoomProvider, useRoom } from "../../contexts/RoomContext";
 
 export const HomeScreen = () => {
+  return (
+    <RoomProvider>
+      <HomePage />
+    </RoomProvider>
+  );
+};
+
+const HomePage = () => {
   const { currentUser, currentUserObject, logout } = useAuth();
-  const [room, setRoom] = useState(null);
+  const { room } = useRoom();
   const [roomName, setRoomName] = useState("");
   const navigation = useNavigation();
-
-  const userRoomRef = ref(database, `users/${currentUser.uid}/room`);
-  useEffect(() => {
-    onValue(userRoomRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data !== null) {
-        setRoom(data);
-      }
-    });
-  }, []);
 
   const createRoom = () => {
     const uuid = uid();
@@ -36,7 +34,7 @@ export const HomeScreen = () => {
       name: roomName,
       users: {
         [currentUser.uid]: {
-          name:currentUser.email
+          name: currentUser.email,
         },
       },
     })
@@ -47,6 +45,7 @@ export const HomeScreen = () => {
         });
       })
       .catch(() => console.log("error with room creation"))
+      .then(() => setRoomName(""))
       .then(() => handleJoinExistingRoom());
   };
 
@@ -73,8 +72,12 @@ export const HomeScreen = () => {
           <Text>Join Existing Room</Text>
         </TouchableOpacity>
       )}
-      <Text>MY ROOM:</Text>
-      <Text>{room}</Text>
+      {userHasRoom && (
+        <View>
+          <Text>MY ROOM:</Text>
+          <Text>{room.name}</Text>
+        </View>
+      )}
       <Text></Text>
       <TouchableOpacity onPress={logout}>
         <Text>logout</Text>
